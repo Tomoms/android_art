@@ -209,9 +209,9 @@ define build-libart-compiler
     else
       LOCAL_SHARED_LIBRARIES += libart liblz4 liblzma
     endif
-    ifeq ($$(art_target_or_host),target)
-      LOCAL_FDO_SUPPORT := true
-    endif
+#    ifeq ($$(art_target_or_host),target)
+#      LOCAL_FDO_SUPPORT := true
+#    endif
   else # debug
     LOCAL_MODULE := libartd-compiler
     ifeq ($$(art_static_or_shared), static)

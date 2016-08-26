@@ -436,9 +436,9 @@ define build-runtime-library
   LOCAL_CPP_EXTENSION := $$(ART_CPP_EXTENSION)
   ifeq ($$(art_ndebug_or_debug),ndebug)
     LOCAL_MODULE := $(4)
-    ifeq ($$(art_target_or_host),target)
-      LOCAL_FDO_SUPPORT := true
-    endif
+#    ifeq ($$(art_target_or_host),target)
+#      LOCAL_FDO_SUPPORT := true
+#    endif
   else # debug
     LOCAL_MODULE := $(4)d
   endif
