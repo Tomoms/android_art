@@ -20,12 +20,8 @@ public final class Main implements Interface {
     interf.doCall();
   }
 
-  public void doCall$noinline$() {
-    ;
-  }
-
   public void doCall() {
-    doCall$noinline$();
+    if (doThrow) throw new Error("");
   }
 
   public static void main(String[] args) {
@@ -55,7 +51,7 @@ public final class Main implements Interface {
   /// CHECK-NOT:                      InvokeInterface
 
   /// CHECK-START: void Main.testInterfaceToVirtualCall() inliner (after)
-  /// CHECK:                          InvokeVirtual method_name:Main.doCall$noinline$
+  /// CHECK:                          InvokeVirtual method_name:Main.doCall
 
   /// CHECK-START: void Main.testInterfaceToVirtualCall() inliner (after)
   /// CHECK-NOT:                      InvokeStaticOrDirect

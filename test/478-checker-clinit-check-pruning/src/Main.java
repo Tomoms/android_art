@@ -389,7 +389,7 @@ public class Main {
 
   /*
    * Verify that LoadClass from a fully-inlined invoke-static is not merged
-   * with InvokeStaticOrDirect from a later invoke-static to similar method.
+   * with InvokeStaticOrDirect from a later invoke-static to the same method.
    */
 
   /// CHECK-START: void Main.inlinedInvokeStaticViaNonStatic(java.lang.Iterable) liveness (before)
@@ -401,15 +401,11 @@ public class Main {
 
   static void inlinedInvokeStaticViaNonStatic(Iterable<?> it) {
     inlinedInvokeStaticViaNonStaticHelper(null);
-    inlinedInvokeStaticViaNonStaticHelper2(it);
+    inlinedInvokeStaticViaNonStaticHelper(it);
   }
 
   static void inlinedInvokeStaticViaNonStaticHelper(Iterable<?> it) {
-    ClassWithClinit10.inlinedForNull$inline$(it);
-  }
-
-  static void inlinedInvokeStaticViaNonStaticHelper2(Iterable<?> it) {
-    ClassWithClinit10.inlinedForNull$noinline$(it);
+    ClassWithClinit10.inlinedForNull(it);
   }
 
   static class ClassWithClinit10 {
@@ -418,15 +414,11 @@ public class Main {
       System.out.println("Main$ClassWithClinit10's static initializer");
     }
 
-    static void inlinedForNull$inline$(Iterable<?> it) {
+    static void inlinedForNull(Iterable<?> it) {
       if (it != null) {
         it.iterator();
-      }
-    }
-
-    static void inlinedForNull$noinline$(Iterable<?> it) {
-      if (it != null) {
-        it.iterator();
+        // We're not inlining throw at the moment.
+        if (doThrow) { throw new Error(""); }
       }
     }
   }
@@ -459,10 +451,10 @@ public class Main {
     }
 
     static void callInlinedForNull(Iterable<?> it) {
-      inlinedForNull$noinline$(it);
+      inlinedForNull(it);
     }
 
-    static void inlinedForNull$noinline$(Iterable<?> it) {
+    static void inlinedForNull(Iterable<?> it) {
       it.iterator();
       if (it != null) {
         // We're not inlining throw at the moment.
@@ -495,10 +487,10 @@ public class Main {
     }
 
     static void callInlinedForNull(Iterable<?> it) {
-      inlinedForNull$noinline$(it);
+      inlinedForNull(it);
     }
 
-    static void inlinedForNull$noinline$(Iterable<?> it) {
+    static void inlinedForNull(Iterable<?> it) {
       if (it != null) {
         // We're not inlining throw at the moment.
         if (doThrow) { throw new Error(""); }
