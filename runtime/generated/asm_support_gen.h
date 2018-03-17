@@ -35,19 +35,19 @@ DEFINE_CHECK_EQ(static_cast<size_t>(RUNTIME_SAVE_REFS_AND_ARGS_METHOD_OFFSET), (
 #define RUNTIME_SAVE_EVERYTHING_METHOD_OFFSET 0x18
 DEFINE_CHECK_EQ(static_cast<size_t>(RUNTIME_SAVE_EVERYTHING_METHOD_OFFSET), (static_cast<size_t>(art::Runtime::GetCalleeSaveMethodOffset(art::CalleeSaveType::kSaveEverything))))
 #define THREAD_FLAGS_OFFSET 0
-DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_FLAGS_OFFSET), (static_cast<int32_t>(art::Thread:: ThreadFlagsOffset<art::kRuntimePointerSize>().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_FLAGS_OFFSET), (static_cast<int32_t>(art::Thread::ThreadFlagsOffset<art::kRuntimePointerSize>().Int32Value())))
 #define THREAD_ID_OFFSET 12
-DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_ID_OFFSET), (static_cast<int32_t>(art::Thread:: ThinLockIdOffset<art::kRuntimePointerSize>().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_ID_OFFSET), (static_cast<int32_t>(art::Thread::ThinLockIdOffset<art::kRuntimePointerSize>().Int32Value())))
 #define THREAD_IS_GC_MARKING_OFFSET 52
-DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_IS_GC_MARKING_OFFSET), (static_cast<int32_t>(art::Thread:: IsGcMarkingOffset<art::kRuntimePointerSize>().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_IS_GC_MARKING_OFFSET), (static_cast<int32_t>(art::Thread::IsGcMarkingOffset<art::kRuntimePointerSize>().Int32Value())))
 #define THREAD_CARD_TABLE_OFFSET 136
-DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_CARD_TABLE_OFFSET), (static_cast<int32_t>(art::Thread:: CardTableOffset<art::kRuntimePointerSize>().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(THREAD_CARD_TABLE_OFFSET), (static_cast<int32_t>(art::Thread::CardTableOffset<art::kRuntimePointerSize>().Int32Value())))
 #define CODEITEM_INSNS_OFFSET 16
 DEFINE_CHECK_EQ(static_cast<int32_t>(CODEITEM_INSNS_OFFSET), (static_cast<int32_t>(__builtin_offsetof(art::DexFile::CodeItem, insns_))))
 #define MIRROR_OBJECT_CLASS_OFFSET 0
-DEFINE_CHECK_EQ(static_cast<int32_t>(MIRROR_OBJECT_CLASS_OFFSET), (static_cast<int32_t>(art::mirror::Object:: ClassOffset().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(MIRROR_OBJECT_CLASS_OFFSET), (static_cast<int32_t>(art::mirror::Object::ClassOffset().Int32Value())))
 #define MIRROR_OBJECT_LOCK_WORD_OFFSET 4
-DEFINE_CHECK_EQ(static_cast<int32_t>(MIRROR_OBJECT_LOCK_WORD_OFFSET), (static_cast<int32_t>(art::mirror::Object:: MonitorOffset().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(MIRROR_OBJECT_LOCK_WORD_OFFSET), (static_cast<int32_t>(art::mirror::Object::MonitorOffset().Int32Value())))
 #define MIRROR_CLASS_STATUS_INITIALIZED 0xb
 DEFINE_CHECK_EQ(static_cast<uint32_t>(MIRROR_CLASS_STATUS_INITIALIZED), (static_cast<uint32_t>((art::mirror::Class::kStatusInitialized))))
 #define ACCESS_FLAGS_CLASS_IS_FINALIZABLE 0x80000000
@@ -57,19 +57,19 @@ DEFINE_CHECK_EQ(static_cast<uint32_t>(ACCESS_FLAGS_CLASS_IS_INTERFACE), (static_
 #define ACCESS_FLAGS_CLASS_IS_FINALIZABLE_BIT 0x1f
 DEFINE_CHECK_EQ(static_cast<uint32_t>(ACCESS_FLAGS_CLASS_IS_FINALIZABLE_BIT), (static_cast<uint32_t>((art::MostSignificantBit(art::kAccClassIsFinalizable)))))
 #define ART_METHOD_DEX_CACHE_METHODS_OFFSET_32 20
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_DEX_CACHE_METHODS_OFFSET_32), (static_cast<int32_t>(art::ArtMethod:: DexCacheResolvedMethodsOffset(art::PointerSize::k32).Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_DEX_CACHE_METHODS_OFFSET_32), (static_cast<int32_t>(art::ArtMethod::DexCacheResolvedMethodsOffset(art::PointerSize::k32).Int32Value())))
 #define ART_METHOD_DEX_CACHE_METHODS_OFFSET_64 24
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_DEX_CACHE_METHODS_OFFSET_64), (static_cast<int32_t>(art::ArtMethod:: DexCacheResolvedMethodsOffset(art::PointerSize::k64).Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_DEX_CACHE_METHODS_OFFSET_64), (static_cast<int32_t>(art::ArtMethod::DexCacheResolvedMethodsOffset(art::PointerSize::k64).Int32Value())))
 #define ART_METHOD_JNI_OFFSET_32 24
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_JNI_OFFSET_32), (static_cast<int32_t>(art::ArtMethod:: EntryPointFromJniOffset(art::PointerSize::k32).Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_JNI_OFFSET_32), (static_cast<int32_t>(art::ArtMethod::EntryPointFromJniOffset(art::PointerSize::k32).Int32Value())))
 #define ART_METHOD_JNI_OFFSET_64 32
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_JNI_OFFSET_64), (static_cast<int32_t>(art::ArtMethod:: EntryPointFromJniOffset(art::PointerSize::k64).Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_JNI_OFFSET_64), (static_cast<int32_t>(art::ArtMethod::EntryPointFromJniOffset(art::PointerSize::k64).Int32Value())))
 #define ART_METHOD_QUICK_CODE_OFFSET_32 28
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_QUICK_CODE_OFFSET_32), (static_cast<int32_t>(art::ArtMethod:: EntryPointFromQuickCompiledCodeOffset(art::PointerSize::k32).Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_QUICK_CODE_OFFSET_32), (static_cast<int32_t>(art::ArtMethod::EntryPointFromQuickCompiledCodeOffset(art::PointerSize::k32).Int32Value())))
 #define ART_METHOD_QUICK_CODE_OFFSET_64 40
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_QUICK_CODE_OFFSET_64), (static_cast<int32_t>(art::ArtMethod:: EntryPointFromQuickCompiledCodeOffset(art::PointerSize::k64).Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_QUICK_CODE_OFFSET_64), (static_cast<int32_t>(art::ArtMethod::EntryPointFromQuickCompiledCodeOffset(art::PointerSize::k64).Int32Value())))
 #define ART_METHOD_DECLARING_CLASS_OFFSET 0
-DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_DECLARING_CLASS_OFFSET), (static_cast<int32_t>(art::ArtMethod:: DeclaringClassOffset().Int32Value())))
+DEFINE_CHECK_EQ(static_cast<int32_t>(ART_METHOD_DECLARING_CLASS_OFFSET), (static_cast<int32_t>(art::ArtMethod::DeclaringClassOffset().Int32Value())))
 #define STRING_DEX_CACHE_ELEMENT_SIZE_SHIFT 3
 DEFINE_CHECK_EQ(static_cast<int32_t>(STRING_DEX_CACHE_ELEMENT_SIZE_SHIFT), (static_cast<int32_t>(art::WhichPowerOf2(sizeof(art::mirror::StringDexCachePair)))))
 #define STRING_DEX_CACHE_SIZE_MINUS_ONE 1023
