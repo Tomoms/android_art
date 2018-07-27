@@ -25,7 +25,7 @@ cc_defaults {
     host_supported: true,
     defaults: ["art_defaults"],
     srcs: ["dex2oat.cc"],
-
+    cflags: ["-O3"],
     target: {
         android: {
             // Use the 32-bit version of dex2oat on devices
@@ -51,6 +51,7 @@ cc_defaults {
 
 art_cc_binary {
     name: "dex2oat",
+    cflags: ["-O3"],
     defaults: [
         "dex2oat-defaults",
     ],
@@ -64,6 +65,7 @@ art_cc_binary {
 
 art_cc_binary {
     name: "dex2oatd",
+    cflags: ["-O3"],
     defaults: [
         "art_debug_defaults",
         "dex2oat-defaults",
@@ -79,6 +81,7 @@ art_cc_binary {
 art_cc_binary {
     name: "dex2oats",
     device_supported: false,
+    cflags: ["-O3"],
     static_executable: true,
     defaults: ["dex2oat-defaults"],
     target: {
@@ -107,6 +110,7 @@ art_cc_binary {
     name: "dex2oatds",
     device_supported: false,
     static_executable: true,
+    cflags: ["-O3"],
     defaults: [
         "art_debug_defaults",
         "dex2oat-defaults",

@@ -22,6 +22,7 @@
 art_cc_defaults {
     name: "libart-compiler-defaults",
     defaults: ["art_defaults"],
+    cflags: ["-O3"],
     host_supported: true,
     clang: true,
     srcs: [
@@ -234,6 +235,7 @@ gensrcs {
 art_cc_library {
     name: "libart-compiler",
     defaults: ["libart-compiler-defaults"],
+    cflags: ["-O3"],
     codegen: {
         arm: {
             // VIXL assembly support for ARM targets.
@@ -270,6 +272,7 @@ art_cc_library {
 
 art_cc_library {
     name: "libartd-compiler",
+    cflags: ["-O3"],
     defaults: [
         "art_debug_defaults",
         "libart-compiler-defaults",
@@ -311,6 +314,7 @@ art_cc_library {
 art_cc_library {
     name: "libart-compiler-gtest",
     defaults: ["libart-gtest-defaults"],
+    cflags: ["-O3"],
     srcs: ["common_compiler_test.cc"],
     shared_libs: [
         "libartd-compiler",

@@ -393,7 +393,7 @@ cc_defaults {
             ],
         },
     },
-    cflags: ["-DBUILDING_LIBART=1"],
+    cflags: ["-DBUILDING_LIBART=1","-O3"],
     generated_sources: ["art_operator_srcs"],
     // asm_support_gen.h (used by asm_support.h) is generated with cpp-define-generator
     generated_headers: ["cpp-define-generator-asm-support"],
@@ -479,6 +479,7 @@ gensrcs {
 
 art_cc_library {
     name: "libart",
+    cflags: ["-O3"],
     defaults: ["libart_defaults"],
     // Leave the symbols in the shared library so that stack unwinders can
     // produce meaningful name resolution.
@@ -489,6 +490,7 @@ art_cc_library {
 
 art_cc_library {
     name: "libartd",
+    cflags: ["-O3"],
     defaults: [
        "art_debug_defaults",
        "libart_defaults",
@@ -498,6 +500,7 @@ art_cc_library {
 art_cc_library {
     name: "libart-runtime-gtest",
     defaults: ["libart-gtest-defaults"],
+    cflags: ["-O3"],
     srcs: [
         "common_runtime_test.cc",
         "dexopt_test.cc"
