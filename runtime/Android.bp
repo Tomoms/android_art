@@ -248,9 +248,6 @@ cc_defaults {
         "entrypoints/quick/quick_trampoline_entrypoints.cc",
     ],
 
-    // benzo - disable for Function Pass Manager
-    use_clang_lld: false,
-
     arch: {
         arm: {
             clang_asflags: ["-no-integrated-as"],
