@@ -27,9 +27,8 @@
 namespace art {
 
 inline bool ATraceEnabled() {
-#ifdef NDEBUG
   return false;
-#else
+#if 0
   bool enabled = false;
   if (UNLIKELY(PaletteTraceEnabled(&enabled) == PALETTE_STATUS_OK && enabled)) {
     return true;
@@ -41,13 +40,13 @@ inline bool ATraceEnabled() {
 
 inline void ATraceBegin(const char* name) {
   (void)name;
-#ifndef NDEBUG
+#if 0
   PaletteTraceBegin(name);
 #endif
 }
 
 inline void ATraceEnd() {
-#ifndef NDEBUG
+#if 0
   PaletteTraceEnd();
 #endif
 }
@@ -55,7 +54,7 @@ inline void ATraceEnd() {
 inline void ATraceIntegerValue(const char* name, int32_t value) {
   (void)name;
   (void)value;
-#ifndef NDEBUG
+#if 0
   PaletteTraceIntegerValue(name, value);
 #endif
 }
