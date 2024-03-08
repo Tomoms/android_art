@@ -2050,9 +2050,6 @@ class AssemblerRISCV64Test : public AssemblerTest<Riscv64Assembler,
       case FPRoundingMode::kDYN:
         replacement = "dyn";
         break;
-      default:
-        LOG(FATAL) << "Unexpected value for rm: " << enum_cast<uint32_t>(rm);
-        UNREACHABLE();
     }
     size_t rm_index = str->find(RM_TOKEN);
     EXPECT_NE(rm_index, std::string::npos);
@@ -2076,9 +2073,6 @@ class AssemblerRISCV64Test : public AssemblerTest<Riscv64Assembler,
       case AqRl::kAqRl:
         replacement = ".aqrl";
         break;
-      default:
-        LOG(FATAL) << "Unexpected value for `aqrl`: " << enum_cast<uint32_t>(aqrl);
-        UNREACHABLE();
     }
     size_t aqrl_index = str->find(AQRL_TOKEN);
     EXPECT_NE(aqrl_index, std::string::npos);
@@ -2096,9 +2090,6 @@ class AssemblerRISCV64Test : public AssemblerTest<Riscv64Assembler,
       case Riscv64Assembler::VM::kV0_t:
         replacement = ", v0.t";
         break;
-      default:
-        LOG(FATAL) << "Unexpected value for `VM`: " << enum_cast<uint32_t>(vm);
-        UNREACHABLE();
     }
     size_t vm_index = str->find(VM_TOKEN);
     EXPECT_NE(vm_index, std::string::npos);
@@ -2116,9 +2107,6 @@ class AssemblerRISCV64Test : public AssemblerTest<Riscv64Assembler,
       case Riscv64Assembler::VectorMaskAgnostic::kUndisturbed:
         replacement = "mu";
         break;
-      default:
-        LOG(FATAL) << "Unexpected value for `VectorMaskAgnostic`: " << enum_cast<uint32_t>(vma);
-        UNREACHABLE();
     }
     size_t vma_index = str->find(VMA_TOKEN);
     EXPECT_NE(vma_index, std::string::npos);
@@ -2136,9 +2124,6 @@ class AssemblerRISCV64Test : public AssemblerTest<Riscv64Assembler,
       case Riscv64Assembler::VectorTailAgnostic::kUndisturbed:
         replacement = "tu";
         break;
-      default:
-        LOG(FATAL) << "Unexpected value for `VectorTailAgnostic`: " << enum_cast<uint32_t>(vta);
-        UNREACHABLE();
     }
     size_t vta_index = str->find(VTA_TOKEN);
     EXPECT_NE(vta_index, std::string::npos);

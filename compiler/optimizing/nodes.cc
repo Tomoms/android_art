@@ -1880,9 +1880,6 @@ std::ostream& operator<<(std::ostream& os, ComparisonBias rhs) {
       return os << "gt";
     case ComparisonBias::kLtBias:
       return os << "lt";
-    default:
-      LOG(FATAL) << "Unknown ComparisonBias: " << static_cast<int>(rhs);
-      UNREACHABLE();
   }
 }
 
@@ -3239,9 +3236,6 @@ std::ostream& operator<<(std::ostream& os, HInvokeStaticOrDirect::ClinitCheckReq
       return os << "implicit";
     case HInvokeStaticOrDirect::ClinitCheckRequirement::kNone:
       return os << "none";
-    default:
-      LOG(FATAL) << "Unknown ClinitCheckRequirement: " << static_cast<int>(rhs);
-      UNREACHABLE();
   }
 }
 
@@ -3421,9 +3415,6 @@ std::ostream& operator<<(std::ostream& os, TypeCheckKind rhs) {
       return os << "array_check";
     case TypeCheckKind::kBitstringCheck:
       return os << "bitstring_check";
-    default:
-      LOG(FATAL) << "Unknown TypeCheckKind: " << static_cast<int>(rhs);
-      UNREACHABLE();
   }
 }
 
