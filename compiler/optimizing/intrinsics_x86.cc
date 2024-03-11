@@ -3819,7 +3819,7 @@ static void GenerateVarHandleCommonChecks(HInvoke *invoke,
       break;
     }
     default:
-      // Unimplemented
+      LOG(FATAL) << "Unexpected coordinates count: " << expected_coordinates_count;
       UNREACHABLE();
   }
 
@@ -4353,6 +4353,7 @@ static void GenerateVarHandleGetAndSet(HInvoke* invoke, CodeGeneratorX86* codege
       break;
     }
     default:
+      LOG(FATAL) << "Unexpected type: " << value_type;
       UNREACHABLE();
   }
 
@@ -4691,6 +4692,7 @@ static void GenerateVarHandleGetAndAdd(HInvoke* invoke, CodeGeneratorX86* codege
       break;
     }
     default:
+      LOG(FATAL) << "Unexpected type: " << type;
       UNREACHABLE();
   }
 
@@ -4785,6 +4787,7 @@ static void GenerateBitwiseOp(HInvoke* invoke,
       __ andl(left, right);
       break;
     default:
+      LOG(FATAL) << "Unexpected intrinsic: " << invoke->GetIntrinsic();
       UNREACHABLE();
   }
 }

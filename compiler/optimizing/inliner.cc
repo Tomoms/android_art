@@ -687,7 +687,6 @@ bool HInliner::TryInlineFromInlineCache(HInvoke* invoke_instruction)
       return false;
     }
   }
-  UNREACHABLE();
 }
 
 HInliner::InlineCacheType HInliner::GetInlineCacheJIT(

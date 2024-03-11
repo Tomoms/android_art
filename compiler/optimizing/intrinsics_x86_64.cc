@@ -4496,7 +4496,7 @@ static void GenerateVarHandleGetAndSet(HInvoke* invoke,
         __ xchgq(valreg, field_addr);
         break;
       default:
-        DCHECK(false) << "unexpected type in getAndSet intrinsic";
+        LOG(FATAL) << "unexpected type in getAndSet intrinsic: " << type;
         UNREACHABLE();
     }
     if (byte_swap) {
@@ -4603,7 +4603,7 @@ static void GenerateVarHandleGetAndOp(HInvoke* invoke,
       }
       break;
     default:
-      DCHECK(false) <<  "unexpected operation";
+      LOG(FATAL) <<  "unexpected operation";
       UNREACHABLE();
   }
 
@@ -4631,7 +4631,7 @@ static void GenerateVarHandleGetAndOp(HInvoke* invoke,
       __ LockCmpxchgq(field_addr, temp);
       break;
     default:
-      DCHECK(false) << "unexpected type in getAndBitwiseOp intrinsic";
+      LOG(FATAL) << "unexpected type in getAndBitwiseOp intrinsic";
       UNREACHABLE();
   }
 
@@ -4803,7 +4803,7 @@ static void GenerateVarHandleGetAndAdd(HInvoke* invoke,
           __ LockXaddq(field_addr, valreg);
           break;
         default:
-          DCHECK(false) << "unexpected type in getAndAdd intrinsic";
+          LOG(FATAL) << "unexpected type in getAndAdd intrinsic";
           UNREACHABLE();
       }
     }
