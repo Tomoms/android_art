@@ -195,6 +195,6 @@ public class ReasonMapping {
      */
     public static int getConcurrencyForReason(@NonNull @BatchDexoptReason String reason) {
         return SystemProperties.getInt("persist.device_config.runtime." + reason + "_concurrency",
-                SystemProperties.getInt("pm.dexopt." + reason + ".concurrency", 4 /* def */));
+                SystemProperties.getInt("pm.dexopt." + reason + ".concurrency", 6 /* def */));
     }
 }
