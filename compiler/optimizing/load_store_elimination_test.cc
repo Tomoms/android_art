@@ -1525,18 +1525,19 @@ TEST_P(TwoTypesConversionsTestGroup, StoreLoopLoadStoreLoad) {
   EXPECT_INS_REMOVED(read1);
   EXPECT_INS_REMOVED(read2);
 
-  if (load_type1 != DataType::Type::kInt32 && load_type2 != load_type1) {
-    GTEST_SKIP() << "FIXME: Missing type conversions. Bug: 341476044";
-  }
-  // Note: Sometimes we create two type conversions when one is enough (Int32->Int16->Int8).
-  // We currently rely on the instruction simplifier to remove the intermediate conversion.
+  // Note: If the `load_type2` is not larger than the `load_type1`, we avoid
+  // the intermediate conversion and use `param` directly for the second load.
+  DataType::Type read2_input_type = DataType::Size(load_type2) <= DataType::Size(load_type1)
+      ? DataType::Type::kInt32
+      : load_type1;
   HInstruction* current = ret->InputAt(0);
-  if (!DataType::IsTypeConversionImplicit(load_type1, load_type2)) {
+  if (!DataType::IsTypeConversionImplicit(read2_input_type, load_type2)) {
     ASSERT_TRUE(current->IsTypeConversion()) << current->DebugName();
     ASSERT_EQ(load_type2, current->GetType());
     current = current->InputAt(0);
   }
-  if (!DataType::IsTypeConversionImplicit(DataType::Type::kInt32, load_type1)) {
+  if (!DataType::IsTypeConversionImplicit(DataType::Type::kInt32, read2_input_type)) {
+    ASSERT_EQ(read2_input_type, load_type1);
     ASSERT_TRUE(current->IsTypeConversion()) << current->DebugName();
     ASSERT_EQ(load_type1, current->GetType()) << load_type2;
     current = current->InputAt(0);
@@ -1589,7 +1590,6 @@ TEST_P(TwoTypesConversionsTestGroup, MergingConvertedValueStore) {
     EXPECT_INS_REMOVED(phi_write) << "\n" << param_type << "/" << load_type;
     ASSERT_EQ(param, ret_input) << ret_input->DebugName();
   } else {
-    GTEST_SKIP() << "FIXME: Missing type conversions. Bug: 341476044";
     EXPECT_INS_RETAINED(phi_write) << "\n" << param_type << "/" << load_type;
     ASSERT_TRUE(ret_input->IsPhi()) << ret_input->DebugName();
     HInstruction* pre_header_input = ret_input->InputAt(0);
@@ -1654,22 +1654,25 @@ TEST_P(TwoTypesConversionsTestGroup, MergingTwiceConvertedValueStore) {
     EXPECT_INS_REMOVED(phi_write) << "\n" << load_type1 << "/" << load_type2;
     ASSERT_EQ(param, ret_input) << ret_input->DebugName();
   } else {
-    GTEST_SKIP() << "FIXME: Missing type conversions. Bug: 341476044";
     EXPECT_INS_RETAINED(phi_write) << "\n" << load_type1 << "/" << load_type2;
     ASSERT_TRUE(ret_input->IsPhi()) << ret_input->DebugName();
     HInstruction* pre_header_input = ret_input->InputAt(0);
     HInstruction* loop_body_input = ret_input->InputAt(1);
     ASSERT_EQ(param, pre_header_input) << pre_header_input->DebugName();
     ASSERT_TRUE(loop_body_input->IsTypeConversion());
-    // Note: Sometimes we create two type conversions when one is enough (Int32->Int16->Int8).
-    // We currently rely on the instruction simplifier to remove the intermediate conversion.
     HInstruction* current = loop_body_input;
-    if (!DataType::IsTypeConversionImplicit(load_type1, load_type2)) {
+    // Note: If the `load_type2` is not larger than the `load_type1`, we avoid
+    // the intermediate conversion and use Phi directly for the second load.
+    DataType::Type read2_input_type = DataType::Size(load_type2) <= DataType::Size(load_type1)
+        ? DataType::Type::kInt32
+        : load_type1;
+    if (!DataType::IsTypeConversionImplicit(read2_input_type, load_type2)) {
       ASSERT_TRUE(current->IsTypeConversion()) << current->DebugName();
       ASSERT_EQ(load_type2, current->GetType());
       current = current->InputAt(0);
     }
-    if (!DataType::IsTypeConversionImplicit(DataType::Type::kInt32, load_type1)) {
+    if (!DataType::IsTypeConversionImplicit(DataType::Type::kInt32, read2_input_type)) {
+      ASSERT_EQ(read2_input_type, load_type1);
       ASSERT_TRUE(current->IsTypeConversion()) << current->DebugName();
       ASSERT_EQ(load_type1, current->GetType()) << load_type2;
       current = current->InputAt(0);
