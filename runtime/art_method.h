@@ -1034,11 +1034,6 @@ class EXPORT ArtMethod final {
   std::string JniLongName()
       REQUIRES_SHARED(Locks::mutator_lock_);
 
-  // Update entry points by passing them through the visitor.
-  template <typename Visitor>
-  ALWAYS_INLINE void UpdateEntrypoints(const Visitor& visitor, PointerSize pointer_size)
-      REQUIRES_SHARED(Locks::mutator_lock_);
-
   // Visit the individual members of an ArtMethod.  Used by imgdiag.
   // As imgdiag does not support mixing instruction sets or pointer sizes (e.g., using imgdiag32
   // to inspect 64-bit images, etc.), we can go beneath the accessors directly to the class members.
@@ -1071,6 +1066,19 @@ class EXPORT ArtMethod final {
 
   GcRoot<mirror::Class>& DeclaringClassRoot() {
     return declaring_class_;
+  }
+
+  template<typename T>
+  ALWAYS_INLINE void SetNativePointer(MemberOffset offset, T new_value, PointerSize pointer_size)
+      REQUIRES_SHARED(Locks::mutator_lock_) {
+    static_assert(std::is_pointer<T>::value, "T must be a pointer type");
+    const auto addr = reinterpret_cast<uintptr_t>(this) + offset.Uint32Value();
+    if (pointer_size == PointerSize::k32) {
+      uintptr_t ptr = reinterpret_cast<uintptr_t>(new_value);
+      *reinterpret_cast<uint32_t*>(addr) = dchecked_integral_cast<uint32_t>(ptr);
+    } else {
+      *reinterpret_cast<uint64_t*>(addr) = reinterpret_cast<uintptr_t>(new_value);
+    }
   }
 
  protected:
@@ -1149,19 +1157,6 @@ class EXPORT ArtMethod final {
     } else {
       auto v = *reinterpret_cast<const uint64_t*>(addr);
       return reinterpret_cast<T>(dchecked_integral_cast<uintptr_t>(v));
-    }
-  }
-
-  template<typename T>
-  ALWAYS_INLINE void SetNativePointer(MemberOffset offset, T new_value, PointerSize pointer_size)
-      REQUIRES_SHARED(Locks::mutator_lock_) {
-    static_assert(std::is_pointer<T>::value, "T must be a pointer type");
-    const auto addr = reinterpret_cast<uintptr_t>(this) + offset.Uint32Value();
-    if (pointer_size == PointerSize::k32) {
-      uintptr_t ptr = reinterpret_cast<uintptr_t>(new_value);
-      *reinterpret_cast<uint32_t*>(addr) = dchecked_integral_cast<uint32_t>(ptr);
-    } else {
-      *reinterpret_cast<uint64_t*>(addr) = reinterpret_cast<uintptr_t>(new_value);
     }
   }
 
