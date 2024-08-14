@@ -123,7 +123,6 @@ art_module_art_global_defaults {
         "-Wshadow",
         "-Wunused",
         "-fvisibility=protected",
-        "-O3",
 
         // Warn about thread safety violations with clang.
         "-Wthread-safety",
