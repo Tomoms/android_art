@@ -1860,10 +1860,9 @@ void Artd::AddPerfConfigFlags(PriorityClass priority_class,
   dex2oat_args.AddRuntimeIfNonEmpty("-Xms%s", props_->GetOrEmpty("dalvik.vm.dex2oat-Xms"))
       .AddRuntimeIfNonEmpty("-Xmx%s", props_->GetOrEmpty("dalvik.vm.dex2oat-Xmx"));
 
-  // Enable compiling dex files in isolation on low ram devices.
+  // Enable compiling dex files in isolation.
   // It takes longer but reduces the memory footprint.
-  dex2oat_args.AddIf(props_->GetBool("ro.config.low_ram", /*default_value=*/false),
-                     "--compile-individually");
+  dex2oat_args.AddIf(true, "--compile-individually");
 
   for (const std::string& flag :
        Tokenize(props_->GetOrEmpty("dalvik.vm.dex2oat-flags"), /*delimiters=*/" ")) {
