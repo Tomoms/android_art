@@ -55,11 +55,7 @@ static constexpr size_t kMaxPageSize = kMinPageSize;
 // this is the value to be used in images files for aligning contents to page size.
 static constexpr size_t kElfSegmentAlignment = kMaxPageSize;
 
-#if defined(NDEBUG) && !defined(__clang_analyzer__)
 static constexpr bool kIsDebugBuild = false;
-#else
-static constexpr bool kIsDebugBuild = true;
-#endif
 
 #if defined(ART_PGO_INSTRUMENTATION)
 static constexpr bool kIsPGOInstrumentation = true;
