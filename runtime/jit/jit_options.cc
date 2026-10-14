@@ -27,16 +27,10 @@ static constexpr uint32_t kJitMaxThreshold = std::numeric_limits<uint16_t>::max(
 static constexpr uint32_t kJitDefaultOptimizeThreshold = 0xffff;
 // Different optimization threshold constants. These default to the equivalent optimization
 // thresholds divided by 2, but can be overridden at the command-line.
-static constexpr uint32_t kJitStressDefaultOptimizeThreshold = kJitDefaultOptimizeThreshold / 2;
-static constexpr uint32_t kJitSlowStressDefaultOptimizeThreshold =
-    kJitStressDefaultOptimizeThreshold / 2;
 
 static constexpr uint32_t kJitDefaultWarmupThreshold = 0xffff;
 // Different warm-up threshold constants. These default to the equivalent warmup thresholds divided
 // by 2, but can be overridden at the command-line.
-static constexpr uint32_t kJitStressDefaultWarmupThreshold = kJitDefaultWarmupThreshold / 2;
-static constexpr uint32_t kJitSlowStressDefaultWarmupThreshold =
-    kJitStressDefaultWarmupThreshold / 2;
 
 static constexpr size_t kDefaultPriorityThreadWeightRatio = 1000;
 static constexpr size_t kDefaultInvokeTransitionWeightRatio = 500;
